@@ -1,0 +1,20 @@
+:root {
+  --base-spacing: 0.25rem;
+  --white-color: #ffffff;
+  --black-color: #000000;
+  --transition-duration: 0.15s;
+}
+
+html {
+  --background-color: oklch(98.7% 0.022 95.277);
+  --background-contrast-color: var(--black-color);
+  --background-highlighted-color: oklch(96.2% 0.059 95.617);
+  --primary-color: oklch(44.4% 0.177 26.899);
+}
+
+html.dark {
+  --background-color: oklch(21.6% 0.006 56.043);
+  --background-contrast-color: var(--white-color);
+  --background-highlighted-color: oklch(37.4% 0.01 67.558);
+  --primary-color: oklch(89.7% 0.196 126.665);
+}
