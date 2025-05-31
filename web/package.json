@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@sergiovegasalonso/sva-button": "^1.0.5",
     "astro": "^5.8.0"
   }
 }

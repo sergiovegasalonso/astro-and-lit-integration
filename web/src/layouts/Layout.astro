@@ -1,22 +1,112 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <style>
+      :root {
+        --base-spacing: 0.25rem;
+        --white-color: #ffffff;
+        --black-color: #000000;
+        --transition-duration: 0.5s;
+      }
+
+      html {
+        --background-color: oklch(98.7% 0.022 95.277);
+        --background-contrast-color: var(--black-color);
+        --background-highlighted-color: oklch(96.2% 0.059 95.617);
+        --primary-color: oklch(44.4% 0.177 26.899);
+      }
+
+      html.dark {
+        --background-color: oklch(21.6% 0.006 56.043);
+        --background-contrast-color: var(--white-color);
+        --background-highlighted-color: oklch(37.4% 0.01 67.558);
+        --primary-color: oklch(89.7% 0.196 126.665);
+      }
+
+      .main-loader {
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--background-color);
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 99;
+        opacity: 1;
+        transition: opacity var(--transition-duration) ease-in-out;
+      }
+
+      .main-loader.fade-out {
+        opacity: 0;
+      }
+
+      .main-loader.hidden {
+        display: none;
+      }
+
+      .main-loader__bar {
+        border: 2px solid var(--background-contrast-color);
+        width: calc(var(--base-spacing) * 60);
+        height: calc(var(--base-spacing) * 5);
+      }
+
+      .main-loader__bar__fill {
+        transform: scaleX(0);
+        transform-origin: 0%;
+        transition: transform var(--transition-duration) ease-out;
+        background-color: var(--primary-color);
+        width: 100%;
+        height: 100%;
+      }
+
+      .main-loader__bar__fill.loading {
+        transform: scaleX(1);
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro and Lit</title>
+    <script>
+      import "@sergiovegasalonso/sva-button";
+
+      window.onload = function () {
+		const TRANSITION_DURATION = 500;
+
+        const mainLoaderBarFill = document.querySelector(
+          ".main-loader__bar__fill"
+        );
+        mainLoaderBarFill?.classList.add("loading");
+
+        setTimeout(() => {
+          const mainLoader = document.querySelector(".main-loader");
+          mainLoader?.classList.add("fade-out");
+          setTimeout(() => {
+            mainLoader?.classList.add("hidden");
+          }, TRANSITION_DURATION);
+        }, TRANSITION_DURATION);
+      };
+    </script>
+  </head>
+  <body>
+    <div class="main-loader">
+      <div class="main-loader__bar">
+        <div class="main-loader__bar__fill"></div>
+      </div>
+    </div>
+    <sva-button sva-button> button </sva-button>
+    <slot />
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
 </style>
